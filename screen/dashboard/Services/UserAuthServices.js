@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // let BASE_URL = 'http://ec2-3-135-119-95.us-east-2.compute.amazonaws.com:5000/api/v1';
-let BASE_URL = '3.134.101.139/api/v1';
+let BASE_URL = '3.134.101.139:5000/api/v1';
 
 
 const UserAuthServices = {
