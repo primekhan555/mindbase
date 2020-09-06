@@ -90,11 +90,14 @@ export default class SignupScreen extends Component<{}> {
   }
 
   async GetChatList() {
+    console.log("333333333333333333333333333333333ddddd");
+
     try {
       const {data} = await UserAuthServices.GetDepartment();
 
       var datslit = [];
-      console.log(data);
+      console.log("dddddddddddddddddddddddddddddddddd");
+      // console.log(data);
       data.data.forEach(function(item) {
         datslit.push(<Picker.Item label={item.department} value={item._id} />);
       });

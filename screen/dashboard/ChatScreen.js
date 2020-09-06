@@ -83,6 +83,8 @@ export default class ChatScreen extends Component<{}>
    }
 
    componentDidMount() {
+     console.log("333333333333333333333333333333333")
+     console.log(this.props.navigation.state.params.item)
     var that = this;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
@@ -361,7 +363,7 @@ export default class ChatScreen extends Component<{}>
                          color='#1c2d41'
                        />
                       </TouchableOpacity>
-                      <Text style={{fontSize: 21,color: "#1c2d41" ,fontWeight:'bold',marginLeft:15}}>{this.props.navigation.state.params.name}</Text>
+                      <Text style={{fontSize: 21,color: "#1c2d41" ,fontWeight:'bold',marginLeft:15}}>{Object.keys(this.props.navigation.state.params.item.department).length>2?this.props.navigation.state.params.item.department:this.props.navigation.state.params.name}</Text>
                    </View>
 
                    <View style={{ flex:1,marginTop:20 }}>

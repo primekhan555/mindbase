@@ -189,7 +189,7 @@ export default class MoodScreen extends Component<{}>
                           <TouchableOpacity underlayColor='#FFFFF' onPress={()=> this.setState({main_id :item._id,})}>
                             <View style={[styles.flaxview,{borderWidth: (this.state.main_id ==item._id)?1:0,borderColor: '#201F3E'}]}>
                             <Image source={{uri: `${item.image}`}} style={{height:50,width:50,margin:5,resizeMode: 'contain',}} />
-                              <Text style={{fontSize: 12,color: "#baa8ff", marginTop:5 ,fontWeight:'bold'}}>{item.name}</Text>
+                              <Text style={{fontSize: 12,color: `${item.color}`, marginTop:5 ,fontWeight:'bold'}}>{item.name}</Text>
                             </View>
                           </TouchableOpacity>
                         }
