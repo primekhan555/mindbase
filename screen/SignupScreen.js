@@ -48,6 +48,7 @@ export default class SignupScreen extends Component<{}> {
 
   handleConfirm(date) {
     var newDate = moment(Date(date)).format('DD-MM-YYYY');
+    console.log(newDate.toString())
     this.setState({
       date: newDate,
     });
@@ -67,7 +68,7 @@ export default class SignupScreen extends Component<{}> {
       isnot: false,
       isbirth: false,
       birth: 0,
-      date: 'Birthdate',
+      date: 'Date of Birth',
       isDatePickerVisible: false,
       firstname: '',
       lastname: '',
@@ -80,6 +81,7 @@ export default class SignupScreen extends Component<{}> {
       load: false,
       departmentvalue: '',
       department: [],
+      gender:"Male"
     };
   }
 
@@ -141,19 +143,19 @@ export default class SignupScreen extends Component<{}> {
     }
     try {
       this.setState({load: !this.state.load});
-      var gender = 'Female';
-      if (this.state.isyes) {
-        gender = 'Male';
-      }
+      // var gender = 'Female';
+      // if (this.state.isyes) {
+      //   gender = 'Male';
+      // }
       const {data} = await UserAuthServices.UserRegister(
         this.state.firstname,
         this.state.lastname,
         this.state.oferid,
         this.state.email,
-        gender,
+        this.state.gender,
         this.state.phoneno,
         this.state.password,
-        this.state.datenam,
+        this.state.date.toString(),
         this.state.departmentvalue,
       );
       console.log(data);
@@ -267,146 +269,7 @@ export default class SignupScreen extends Component<{}> {
               }}
             />
 
-            <View
-              style={{
-                width: Dimensions.get('window').width - 40,
-                marginLeft: 25,
-                marginRight: 20,
-                marginTop: 20,
-              }}>
-              <Text
-                style={{fontSize: 14, color: '#7d8092', fontWeight: 'bold'}}>
-                Gender
-              </Text>
-
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginTop: 10,
-                  alignItems: 'center',
-                }}>
-                <TouchableHighlight
-                  underlayColor="#FFFFF"
-                  onPress={() =>
-                    this.setState({isyes: true, isalmost: false, isnot: false})
-                  }
-                  style={{flex: 1}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      opacity: this.state.isyes ? 1 : 0.5,
-                      alignItems: 'center',
-                    }}>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.setState({
-                            isyes: true,
-                            isalmost: false,
-                            isnot: false,
-                          })
-                        }
-                        style={[styles.button, {backgroundColor: '#201F3E'}]}>
-                        <View style={styles.checkedButton} />
-                      </TouchableOpacity>
-                    </View>
-                    <Text> Male </Text>
-                  </View>
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  underlayColor="#FFFFF"
-                  onPress={() =>
-                    this.setState({isyes: false, isalmost: true, isnot: false})
-                  }
-                  style={{flex: 1}}>
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      opacity: this.state.isalmost ? 1 : 0.5,
-                      alignItems: 'center',
-                    }}>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.setState({
-                            isyes: false,
-                            isalmost: true,
-                            isnot: false,
-                          })
-                        }
-                        style={[styles.button, {backgroundColor: '#201F3E'}]}>
-                        <View style={styles.checkedButton} />
-                      </TouchableOpacity>
-                    </View>
-                    <Text> Female </Text>
-                  </View>
-                </TouchableHighlight>
-              </View>
-            </View>
-
-            <View
-              style={[styles.searchSection, {elevation: this.state.isofficer}]}>
-              <View
-                style={{
-                  marginRight: 10,
-                  justifyContent: 'center',
-                  borderRightColor: '#E0E0E0',
-                }}>
-                <Icon name="user" size={25} color="#1c2d41" />
-              </View>
-
-              <TextInput
-                onFocus={() => this.setState({isofficer: 20})}
-                onBlur={() => this.setState({isofficer: 0})}
-                style={styles.input}
-                placeholderTextColor="#201F3E"
-                placeholder="Officer Id"
-                onChangeText={searchString => {
-                  this.setState({oferid: searchString});
-                }}
-                underlineColorAndroid="transparent"
-              />
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: '#e5e8ef',
-                width: Dimensions.get('window').width - 40,
-                marginLeft: 20,
-                marginRight: 20,
-                alignItems: 'center',
-              }}
-            />
-
-            <View
-              style={{
-                width: Dimensions.get('window').width - 40,
-                marginLeft: 25,
-                marginRight: 20,
-                marginTop: 10,
-              }}>
-              <Text
-                style={{fontSize: 14, color: '#7d8092', fontWeight: 'bold'}}>
-                Department
-              </Text>
-              <Picker
-                style={{
-                  width: Dimensions.get('window').width - 70,
-                  fontWeight: 'bold',
-                }}
-                itemStyle={{fontWeight: 'bold'}}
-                selectedValue={this.state.departmentvalue}
-                onValueChange={value => {
-                  this.setState({departmentvalue: value});
-                }}>
-                <Picker.Item label={'Select Department'} value={''} />
-                {this.state.department}
-              </Picker>
-            </View>
-
+            
             {/* <View style={{borderBottomWidth: 2,borderBottomColor: '#e5e8ef',width: (Dimensions.get('window').width)-40,marginLeft:20,marginRight:20}}/>
           <TouchableOpacity onPress={()=> this.setState({ isDatePickerVisible:true }) }>
             <View style={{ flexDirection: 'row',
@@ -442,7 +305,7 @@ export default class SignupScreen extends Component<{}> {
            </TouchableOpacity>
          */}
 
-            <View style={[styles.searchSection, {elevation: this.state.birth}]}>
+            {/* <View style={[styles.searchSection, {elevation: this.state.birth}]}>
               <View
                 style={{
                   marginRight: 10,
@@ -450,9 +313,10 @@ export default class SignupScreen extends Component<{}> {
                   borderRightColor: '#E0E0E0',
                 }}>
                 <Icon name="calendar" size={25} color="#1c2d41" />
-              </View>
+              </View> */}
 
-              <TextInput
+              {/* <TextInput
+              
                 onFocus={() => this.setState({birth: 20})}
                 onBlur={() => this.setState({birth: 0})}
                 style={styles.input}
@@ -464,16 +328,11 @@ export default class SignupScreen extends Component<{}> {
                 }}
                 underlineColorAndroid="transparent"
               />
-            </View>
+            </View> */}
 
-            <DateTimePickerModal
-              isVisible={this.state.isDatePickerVisible}
-              mode="date"
-              onConfirm={date => this.handleConfirm(date)}
-              onCancel={() => this.setState({isDatePickerVisible: false})}
-            />
+          
 
-            <View
+            {/* <View
               style={{
                 borderBottomWidth: 2,
                 borderBottomColor: '#e5e8ef',
@@ -482,7 +341,7 @@ export default class SignupScreen extends Component<{}> {
                 marginRight: 20,
                 alignItems: 'center',
               }}
-            />
+            /> */}
             <View
               style={[styles.searchSection, {elevation: this.state.ismail}]}>
               <View
@@ -590,6 +449,210 @@ export default class SignupScreen extends Component<{}> {
                 alignItems: 'center',
               }}
             />
+            {/* <View
+              style={{
+                width: Dimensions.get('window').width - 40,
+                marginLeft: 25,
+                marginRight: 20,
+                marginTop: 20,
+              }}>
+              <Text
+                style={{fontSize: 14, color: '#7d8092', fontWeight: 'bold'}}>
+                Gender
+              </Text>
+
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  marginTop: 10,
+                  alignItems: 'center',
+                }}>
+                <TouchableHighlight
+                  underlayColor="#FFFFF"
+                  onPress={() =>
+                    this.setState({isyes: true, isalmost: false, isnot: false})
+                  }
+                  style={{flex: 1}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      opacity: this.state.isyes ? 1 : 0.5,
+                      alignItems: 'center',
+                    }}>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState({
+                            isyes: true,
+                            isalmost: false,
+                            isnot: false,
+                          })
+                        }
+                        style={[styles.button, {backgroundColor: '#201F3E'}]}>
+                        <View style={styles.checkedButton} />
+                      </TouchableOpacity>
+                    </View>
+                    <Text> Male </Text>
+                  </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                  underlayColor="#FFFFF"
+                  onPress={() =>
+                    this.setState({isyes: false, isalmost: true, isnot: false})
+                  }
+                  style={{flex: 1}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      opacity: this.state.isalmost ? 1 : 0.5,
+                      alignItems: 'center',
+                    }}>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState({
+                            isyes: false,
+                            isalmost: true,
+                            isnot: false,
+                          })
+                        }
+                        style={[styles.button, {backgroundColor: '#201F3E'}]}>
+                        <View style={styles.checkedButton} />
+                      </TouchableOpacity>
+                    </View>
+                    <Text> Female </Text>
+                  </View>
+                </TouchableHighlight>
+              </View>
+            </View> */}
+
+           
+                
+           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop: 20,marginRight:20,marginLeft:20}}>
+           <View
+              style={{
+                // width: 150,//Dimensions.get('window').width - 40,
+                // marginLeft: 25,
+                // marginRight: 20,
+              }}>
+              {/* <Text
+                style={{fontSize: 14, color: '#7d8092', fontWeight: 'bold'}}>
+                Department
+              </Text> */}
+              <Picker
+              
+                style={{
+                  width:170,// Dimensions.get('window').width - 70,
+                  // fontWeight: 'bold',
+                  fontSize:10
+                }}
+                itemStyle={{fontWeight: 'bold'}}
+                selectedValue={this.state.departmentvalue}
+                onValueChange={value => {
+                  this.setState({departmentvalue: value});
+                }}>
+                <Picker.Item label={'Select Department'} value={''} />
+                {this.state.department}
+              </Picker>
+              <View
+              style={{
+                borderBottomWidth: 2,
+                borderBottomColor: '#e5e8ef',
+                width: 150,//Dimensions.get('window').width - 40,
+                // marginLeft: 20,
+                // marginRight: 20,
+                alignItems: 'center',
+              }}
+            />
+            </View> 
+           <TouchableOpacity onPress={()=>this.setState({isDatePickerVisible:true})}>
+           <View style={{marginTop:16}}>
+              <Text>{this.state.date}</Text>
+              <View
+              style={{
+                borderBottomWidth: 2,
+                borderBottomColor: '#e5e8ef',
+                width: 70,//Dimensions.get('window').width - 40,
+                marginTop: 15,
+                // marginRight: 20,
+                alignItems: 'center',
+              }}
+            />
+            </View>
+           </TouchableOpacity>
+            <View style={{}}>
+            <Picker
+                style={{
+                  width:100,// Dimensions.get('window').width - 70,
+                  // fontWeight: 'bold',
+                  fontSize:10
+                }}
+                itemStyle={{fontWeight: 'bold'}}
+                selectedValue={this.state.gender}
+                onValueChange={value => {
+                  console.log(value)
+                  this.setState({gender: value});
+                }}>
+                <Picker.Item label={'Male'} value={'Male'} />
+                <Picker.Item label={'Female'} value={'Female'} />
+                {/* {this.state.department} */}
+              </Picker>
+               <View
+              style={{
+                borderBottomWidth: 2,
+                borderBottomColor: '#e5e8ef',
+                width: 75,//Dimensions.get('window').width - 40,
+                marginLeft: 4,
+                marginRight: 80,
+                alignItems: 'center',
+              }}
+            />
+            </View>
+           </View>
+            <View
+              style={[styles.searchSection, {elevation: this.state.isofficer}]}>
+              <View
+                style={{
+                  marginRight: 10,
+                  justifyContent: 'center',
+                  borderRightColor: '#E0E0E0',
+                }}>
+                <Icon name="user" size={25} color="#1c2d41" />
+              </View>
+
+              <TextInput
+                onFocus={() => this.setState({isofficer: 20})}
+                onBlur={() => this.setState({isofficer: 0})}
+                style={styles.input}
+                placeholderTextColor="#201F3E"
+                placeholder="Officer Id"
+                onChangeText={searchString => {
+                  this.setState({oferid: searchString});
+                }}
+                underlineColorAndroid="transparent"
+              />
+            </View>
+            <View
+              style={{
+                borderBottomWidth: 2,
+                borderBottomColor: '#e5e8ef',
+                width: Dimensions.get('window').width - 40,
+                marginLeft: 20,
+                marginRight: 20,
+                alignItems: 'center',
+              }}
+            />
+            <DateTimePickerModal
+              isVisible={this.state.isDatePickerVisible}
+              mode="date"
+              onConfirm={date => this.handleConfirm(date)}
+              onCancel={() => this.setState({isDatePickerVisible: false})}
+            />
+
+
 
             <TouchableHighlight underlayColor="#FFFFF">
               <Text
