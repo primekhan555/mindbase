@@ -25,14 +25,14 @@ import {
   FlatList
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { NavigationActions,StackActions } from "react-navigation";
+// import {
+//   Header,
+//   LearnMoreLinks,
+//   Colors,
+//   DebugInstructions,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationActions,StackActions } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
 import IconLike from "react-native-vector-icons/AntDesign";
 import {LineChart} from 'react-native-chart-kit';
@@ -52,7 +52,7 @@ const SCROLL_HEIGHT = IMAGE_HEIGHT - HEADER_HEIGHT;
 const THEME_COLOR = "rgba(85,186,255, 1)";
 const FADED_THEME_COLOR = "rgba(85,186,255, 0.8)";
 
-export default class ProfileScreen extends Component<{}>
+export default class ProfileScreen extends Component//<{}>
 {
   constructor(){
       super();
@@ -233,8 +233,6 @@ export default class ProfileScreen extends Component<{}>
          } else if (response.error) {
            console.log('ImagePicker Error: ', response.error);
          } else {
-           console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-           console.log(response.path)
            this.setState({
              selectedImage:response.path
            })
@@ -504,19 +502,20 @@ export default class ProfileScreen extends Component<{}>
                                   <Text style={{ fontSize:10, color: "#000",textAlign:'center',marginLeft:5}}> {item.totalComments} Comments </Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity style={{ flex:1,padding:10,borderRadius:10,marginLeft:5,marginRight:5,flexDirection:'row'}} onPress={()=>this.SharePost(index,item._id,item)}>
+                                {/* <TouchableOpacity style={{ flex:1,padding:10,borderRadius:10,marginLeft:5,marginRight:5,flexDirection:'row'}} onPress={()=>this.SharePost(index,item._id,item)}>
                                 <Icon
                                   name='corner-up-right'
                                   size={20}
                                   color='#1c2d41'
                                 />
                                   <Text style={{ fontSize:10,color: "#000",textAlign:'center' ,marginLeft:5}}>  {item.totalShare} Share </Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
 
                               </View>
                               <View style={{flexDirection:'row'}}>
                               <TextInput
                                 style={{
+                                  paddingStart:10,
                                   borderRadius:0,
                                   borderColor:'#B5B1B1',
                                   borderBottomLeftRadius:7,

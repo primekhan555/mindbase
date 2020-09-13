@@ -83,7 +83,6 @@ export default class ChatScreen extends Component<{}>
    }
 
    componentDidMount() {
-     console.log("333333333333333333333333333333333")
      console.log(this.props.navigation.state.params.item)
     var that = this;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
@@ -338,13 +337,13 @@ export default class ChatScreen extends Component<{}>
     if(this.state.show){
         this.setState({show:!this.state.show})
     }
-
+    this.props.navigation.goBack()
     return true;
   }
 
    render()
    {
-     let sampleData = [30, 200, 170, 250, 10]
+    //  let sampleData = [30, 200, 170, 250, 10]
      return (
        <>
                 <View style={[styles.slide, this.state.show?{

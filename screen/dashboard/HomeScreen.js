@@ -381,11 +381,12 @@ export default class HomeScreen extends Component<{}>
                       </Text>
                       <View style={styles.rightContainer}>
                       <TouchableOpacity underlayColor='#FFFFF' onPress={()=> this.props.myprop.props.navigation.navigate("NotificationList") }>
-                            <Icon
+                            <Image source={require("../../assets/notfication.png")} style={{width:25,marginRight:10}} />
+                            {/* <Icon
                              name='bell'
                              size={25}
                              color='#1c2d41'
-                           />
+                           /> */}
                       </TouchableOpacity>
                       </View>
                  </View>
@@ -484,12 +485,9 @@ export default class HomeScreen extends Component<{}>
 
                      <View style={{flexDirection:"row"}}>
                        <Text style={{fontSize:20,color:'#000',marginLeft:15,marginTop:15,width:"45%"}}>
-                         Overview
+                        Mood Overview
                        </Text>
-
-
                        <View style={{flexDirection: 'row',marginTop:10,alignItems:'center',justifyContent:'center'}}>
-
                          <TouchableOpacity style={{ backgroundColor:this.state.sday?"#201F3E":"#201F3E40",padding:8,borderRadius:10,marginLeft:5,marginRight:5}} onPress={()=>this.change("7")}>
                            <Text style={{color:this.state.sday?"#FFF":"#000",textAlign:'center',fontSize:12,paddingRight:10,paddingLeft:10}}> 7 Days </Text>
                          </TouchableOpacity>

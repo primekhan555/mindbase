@@ -186,14 +186,15 @@ export default class SignupScreen extends Component<{}> {
         <ScrollView style={styles.SplashScreen_RootView}>
           <StatusBar backgroundColor="#fff" barStyle="dark-content" />
           <View style={styles.slide}>
-            <View style={{position: 'absolute', right: -15, top: 30}}>
+          <View style={{flexDirection:'row',justifyContent:'space-evenly',position: 'relative',height:150}}>
+              <Image source={require('../assets/MindBase4.png')} style={{width:120,resizeMode: 'contain',marginTop: 30,}}/>
               <Image
                 source={require('../assets/bgimage.png')}
                 style={{
                   width: 200,
                   margin: 10,
                   resizeMode: 'contain',
-                  justifyContent: 'center',
+                  // justifyContent: 'center',
                   alignItems: 'center',
                 }}
               />
@@ -726,7 +727,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
 
     fontWeight: 'bold',
-    marginTop: 180,
+    marginTop: 20,
     marginLeft: 30,
   },
   textlabale: {

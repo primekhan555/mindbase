@@ -381,7 +381,7 @@ export default class ProfileScreen extends Component
 
    render()
    {
-     let sampleData = [30, 200, 170, 250, 10]
+    //  let sampleData = [30, 200, 170, 250, 10]
      return (
        <>
                 <View style={styles.slide}>

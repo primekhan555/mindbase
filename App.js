@@ -50,6 +50,7 @@ import NotificationList from "./screen/dashboard/NotificationList.js"
 import Profilefullview from "./screen/dashboard/Profilefullview.js"
 import EditProfile from "./screen/dashboard/EditProfile.js"
 import EditpostScreen from "./screen/dashboard/EditpostScreen.js"
+import ChatListScreen from './screen/dashboard/ChatListScreen';
 
 console.disableYellowBox = true;
 const App = createAppContainer(createStackNavigator(
@@ -75,7 +76,8 @@ const App = createAppContainer(createStackNavigator(
     NotificationList:{screen:NotificationList},
     Profilefullview:{screen:Profilefullview},
     EditProfile:{screen:EditProfile},
-    EditpostScreen:{screen:EditpostScreen}
+    EditpostScreen:{screen:EditpostScreen},
+    ChatListScreen:{screen:ChatListScreen},
   },
   {
     // initialRouteKey:'DashBoardScreen',

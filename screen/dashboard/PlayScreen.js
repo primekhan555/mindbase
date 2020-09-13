@@ -19,22 +19,23 @@ import {
   TouchableHighlight,
   TextInput,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { NavigationActions,StackActions } from "react-navigation";
+// import {
+//   Header,
+//   LearnMoreLinks,
+//   Colors,
+//   DebugInstructions,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationActions,StackActions } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
-import {LineChart} from 'react-native-chart-kit';
-import Animated, { Easing } from "react-native-reanimated";
-import { runTiming } from "react-native-redash";
-import CountDown from 'react-native-countdown-component';
+// import {LineChart} from 'react-native-chart-kit';
+// import Animated, { Easing } from "react-native-reanimated";
+// import { runTiming } from "react-native-redash";
+// import CountDown from 'react-native-countdown-component';
 import Slider from "react-native-slider";
 import Moment from "moment";
 import TrackPlayer, {ProgressComponent} from "react-native-track-player";
@@ -43,8 +44,8 @@ import UserAuthServices from './Services/UserAuthServices.js';
 export default class PlayScreen extends TrackPlayer.ProgressComponent
 {
 
-  // constructor(){
-  //     super();
+  constructor(){
+      super();
   //     this.state={
   //     isVisible : true,
   //     ismail:0,
@@ -62,7 +63,8 @@ export default class PlayScreen extends TrackPlayer.ProgressComponent
   //     corrent:0,
   //    }
   //
-  //  }
+  this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+   }
 
    changeTime = seconds => {
     console.log("sad");
@@ -72,6 +74,7 @@ export default class PlayScreen extends TrackPlayer.ProgressComponent
 
   componentDidMount(){
     super.componentDidMount()
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
     console.log(this.props.navigation.state.params.item);
     this.setState({
           isVisible : true,
@@ -93,9 +96,16 @@ export default class PlayScreen extends TrackPlayer.ProgressComponent
           corrent:0,
           button : require("../../assets/ic_play_arrow_48px.png")
     })
-    onTrackChange:""
+    // onTrackChange:""
     this.setup()
 
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+    this.backopen()
+    return true;
   }
 
   async setup() {
@@ -119,12 +129,7 @@ export default class PlayScreen extends TrackPlayer.ProgressComponent
         button:require("../../assets/ic_play_arrow_48px.png")
       })
     });
-    console.log("setop");
-
     this.onTrackChange = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
-
-      console.log("chn-------------------------age");
-
     });
             // console.log("-------------------");
             // console.log(data.nextTrack);
@@ -308,7 +313,7 @@ async getcuttentpoition() {
  }
    render()
    {
-     let sampleData = [30, 200, 170, 250, 10]
+    //  let sampleData = [30, 200, 170, 250, 10]
      return (
        <>
             <View style={styles.slide}>

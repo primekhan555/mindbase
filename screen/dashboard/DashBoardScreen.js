@@ -106,7 +106,7 @@ Jobs: {
     tabBarIcon: ({tintColor}) => (
       <Image
         source={require('../../assets/profile.png')}
-        style={{tintColor: tintColor}}
+        style={{tintColor: tintColor,height:15,resizeMode:'center'}}
       />
     ),
   },
@@ -127,7 +127,7 @@ tabBarOptions: {
 );
 // export default createAppContainer(TabNavigator)
 
-export default class DashBoardScreen extends Component<{}>
+export default class DashBoardScreen extends Component//<{}>
 {
   constructor(){
       super();

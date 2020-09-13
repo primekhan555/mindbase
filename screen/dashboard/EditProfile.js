@@ -22,7 +22,8 @@ import {
   TouchableOpacity,
   Picker,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler
 } from 'react-native';
 
 import {
@@ -40,7 +41,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DropdownAlert from 'react-native-dropdownalert';
 
 
-export default class EditProfile extends Component<{}>
+export default class EditProfile extends Component//<{}>
 {
     constructor(){
       super();
@@ -75,11 +76,24 @@ export default class EditProfile extends Component<{}>
         departmentvalue:"",
         department:[]
      }
+     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
     componentDidMount() {
       var that = this;
       this.userdata()
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
+
+    }
+    componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+    handleBackButtonClick() {
+      // if(this.state.show){
+      //     this.setState({show:!this.state.show})
+      // }
+      this.props.navigation.pop(1)
+      return true;
     }
 
     userdata(){

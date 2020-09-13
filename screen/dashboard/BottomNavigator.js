@@ -38,7 +38,6 @@ export default class BottomNavigator extends Component {
      }
 
    componentDidMount() {
-
      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
       this.setState({
         view:<HomeScreen myprop={this} draweropen={this._drawer}/>
@@ -89,6 +88,12 @@ export default class BottomNavigator extends Component {
     }
 
     handleBackButtonClick() {
+      console.log(this.state.home);
+      if (this.state.home) {
+    BackHandler.exitApp()
+        
+      }
+      this.clickdraver("home")
       return true;
     }
 
@@ -287,8 +292,7 @@ export default class BottomNavigator extends Component {
                                   ,home : false,
                                    feed : false,
                                    chat : true,
-                                   profile : false,  })}
-                            >
+                                   profile : false,  })}>
                                 <Image
                                     source={require('../../assets/chat.png')}
                                     onPress={() => { Alert.alert("click") }}
@@ -312,8 +316,7 @@ export default class BottomNavigator extends Component {
                                   ,home : false,
                                    feed : false,
                                    chat : false,
-                                   profile : true, }) }
-                            >
+                                   profile : true, })}>
                                 <Image
                                     source={require('../../assets/profile.png')}
 

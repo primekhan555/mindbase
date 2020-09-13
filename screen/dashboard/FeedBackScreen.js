@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView, BackHandler } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FlatList } from 'react-native-gesture-handler';
+
+
 
 var options = [
     {
@@ -18,20 +20,36 @@ var options = [
     }
 ]
 
+
 export default class FeedBackScreen extends Component {
+    constructor() {
+        super()
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    }
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
+    }
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+    handleBackButtonClick() {
+        this.props.navigation.pop(1)
+        return true;
+    }
+
     render() {
         return (
             <View style={styles.MainView}>
-            <View style={[styles.View1,{marginTop:30}]}>
-                <View style={styles.View2}>
-                    <TouchableOpacity style={styles.BackButton} onPress={()=> this.props.navigation.pop(1)}>
-                        <Image source={require('../../assets/Arrow.png')} style={styles.img} resizeMode="contain" />
-                    </TouchableOpacity>
-                    <View style={{justifyContent: "center", alignItems: "center", marginLeft:50 }}>
-                        <Text style={styles.HeaderTitle}>Submit Feedback</Text>
+                <View style={[styles.View1, { marginTop: 30 }]}>
+                    <View style={styles.View2}>
+                        <TouchableOpacity style={styles.BackButton} onPress={() => this.props.navigation.pop(1)}>
+                            <Image source={require('../../assets/Arrow.png')} style={styles.img} resizeMode="contain" />
+                        </TouchableOpacity>
+                        <View style={{ justifyContent: "center", alignItems: "center", marginLeft: 50 }}>
+                            <Text style={styles.HeaderTitle}>Submit Feedback</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
                 <ScrollView style={{ flex: 1 }} ref={x => this.mScroll = x}>
                     <Text style={styles.TXT1}>Select Response Time</Text>
                     <View style={{ paddingHorizontal: hp(2) }}>
@@ -71,13 +89,11 @@ export default class FeedBackScreen extends Component {
                             />
                         </View>
                     </View>
-                    <Text style={{ marginHorizontal: hp(3), fontSize: hp(2.7), color: "#77818D" }}>
-                        * All response submitted are anonymous. No
-                        identifiable data will be provided with your
-                        submission.
+                    <Text style={{ marginHorizontal: hp(3), fontSize: hp(2.2), color: "#77818D" }}>
+                        * All response submitted are anonymous. No identifiable data will be provided with your submission.
                     </Text>
                 </ScrollView>
-                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", height: hp(6), borderRadius: hp(1), backgroundColor: "#201F3E", margin: hp(2) }} onPress={()=> this.props.navigation.pop(1)}>
+                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", height: hp(6), borderRadius: hp(1), backgroundColor: "#201F3E", margin: hp(2) }} onPress={() => this.props.navigation.pop(1)}>
                     <Text style={{ color: "white", fontSize: hp(2.5) }}>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -116,7 +132,7 @@ const styles = StyleSheet.create({
         height: hp(9),
         backgroundColor: "white",
         elevation: 2,
-        flexDirection:"row"
+        flexDirection: "row"
     },
     NoteText: {
         fontSize: hp(2),
@@ -124,7 +140,7 @@ const styles = StyleSheet.create({
     },
     View2: {
         // flexDirection: "row",
-        flexDirection:"row",
+        flexDirection: "row",
         justifyContent: "center",
     },
     View3: {
@@ -135,7 +151,7 @@ const styles = StyleSheet.create({
         marginHorizontal: hp(2)
     },
     BackButton: {
-        justifyContent: "center",marginLeft: hp(2)
+        justifyContent: "center", marginLeft: hp(2)
     },
     img: {
         height: hp(4),

@@ -95,7 +95,7 @@ export default class ControlPanel extends Component {
 
           <TouchableOpacity onPress={()=>this.props.clickdraver("profile")} style={{marginTop:10}}>
               <View style={{margin:10,flexDirection:'row',alignItems:'center'}}>
-                  <Image source={require("../../assets/profile.png")} style={{ height:20,width:20,resizeMode: 'contain',tintColor:"#1C2D41"}} />
+                  <Image source={require("../../assets/profile1.png")} style={{ height:20,width:20,resizeMode: 'contain',tintColor:"#1C2D41"}} />
                   <Text style={{fontSize:20,color:'#1C2D41',marginLeft:15}}>
                     Profile
                   </Text>

@@ -22,40 +22,41 @@ import {
   Dimensions,
   FlatList,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { NavigationActions,StackActions } from "react-navigation";
+// import {
+//   Header,
+//   LearnMoreLinks,
+//   Colors,
+//   DebugInstructions,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationActions,StackActions } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
-import {LineChart} from 'react-native-chart-kit';
+// import {LineChart} from 'react-native-chart-kit';
 import ImagePicker from 'react-native-image-picker';
-import ImgToBase64 from 'react-native-image-base64';
+// import ImgToBase64 from 'react-native-image-base64';
 import DropdownAlert from 'react-native-dropdownalert';
 import UserAuthServices from './Services/UserAuthServices.js';
 
-const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#08130D",
-  backgroundGradientToOpacity: 0.5,
-  color: 'rgba(26, 255, 146)',
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  user:{
-    lastName:"",
-    firstName:""
-  },
-  useShadowColorFromDataset: false // optional
-};
+// const chartConfig = {
+//   backgroundGradientFrom: "#1E2923",
+//   backgroundGradientFromOpacity: 0,
+//   backgroundGradientTo: "#08130D",
+//   backgroundGradientToOpacity: 0.5,
+//   color: 'rgba(26, 255, 146)',
+//   strokeWidth: 2, // optional, default 3
+//   barPercentage: 0.5,
+//   user:{
+//     lastName:"",
+//     firstName:""
+//   },
+//   useShadowColorFromDataset: false // optional
+// };
 
-export default class AddPostScreen extends Component<{}>
+export default class AddPostScreen extends Component//<{}>
 {
   constructor(){
       super();
@@ -68,8 +69,20 @@ export default class AddPostScreen extends Component<{}>
       searchString:"",
       load:false
      }
-     this.userdata();
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
    }
+   
+   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
+     this.userdata()
+   }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+    this.props.navigation.goBack()
+    return true;
+  }
    userdata(){
      AsyncStorage.getItem("User").then((value) => {
           this.setState({
@@ -81,7 +94,6 @@ export default class AddPostScreen extends Component<{}>
    removeimage(index){
      var logimage = this.state.pickupimages
      var largeimage = this.state.avatarSource
-
      logimage.splice(index, 1);
      largeimage.splice(index, 1);
      this.setState({
@@ -155,7 +167,7 @@ export default class AddPostScreen extends Component<{}>
 
    render()
    {
-     let sampleData = [30, 200, 170, 250, 10]
+    //  let sampleData = [30, 200, 170, 250, 10]
      return (
        <>
                 <View style={styles.slide}>

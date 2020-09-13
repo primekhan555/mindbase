@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React , { Component } from 'react';
+import React, { Component } from 'react';
 
 import {
   SafeAreaView,
@@ -22,7 +22,8 @@ import {
   Dimensions,
   FlatList,
   AsyncStorage,
-  ActivityIndicator
+  ActivityIndicator,
+  BackHandler
 } from 'react-native';
 
 import {
@@ -32,7 +33,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { NavigationActions,StackActions } from "react-navigation";
+import { NavigationActions, StackActions } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
 import LineChart from "./src/line-chart";
 import StepIndicator from 'react-native-step-indicator';
@@ -49,10 +50,10 @@ const chartConfig = {
   useShadowColorFromDataset: false // optional
 };
 
-const labels = ["M","T","W","T","F","S","S"];
+const labels = ["M", "T", "W", "T", "F", "S", "S"];
 const customStyles = {
   stepIndicatorSize: 25,
-  currentStepIndicatorSize:30,
+  currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
   stepStrokeCurrentColor: '#fe7013',
@@ -74,197 +75,206 @@ const customStyles = {
   currentStepLabelColor: '#fe7013'
 }
 
-export default class AddMoodScreen extends Component<{}>
+export default class AddMoodScreen extends Component//<{}>
 {
-  constructor(){
-      super();
-      this.state={
-      isVisible : true,
-      ismail:0,
-      ispasswoed:0,
+  constructor() {
+    super();
+    this.state = {
+      isVisible: true,
+      ismail: 0,
+      ispasswoed: 0,
       currentPosition: 0,
       dataSource: [],
-      mooddata:[],
-      main_id:"",
-      extramood:[],
-      load:true
-     }
-   }
+      mooddata: [],
+      main_id: "",
+      extramood: [],
+      load: true
+    }
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+  }
 
-   componentDidMount() {
+  componentDidMount() {
     var that = this;
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
     this.userdata();
   }
-
-  userdata(){
-    AsyncStorage.getItem("User").then((value) => {
-         this.setState({
-           user:JSON.parse(value)
-         })
-         this.GetMoodList();
-      }).done();
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+    this.props.navigation.pop(1)
+    return true;
   }
 
-  addectra(idstate){
-    if(this.state.extramood.indexOf(idstate) == -1){
+  userdata() {
+    AsyncStorage.getItem("User").then((value) => {
       this.setState({
-        extramood:[...this.state.extramood, idstate]
+        user: JSON.parse(value)
       })
-    }else{
+      this.GetMoodList();
+    }).done();
+  }
+
+  addectra(idstate) {
+    if (this.state.extramood.indexOf(idstate) == -1) {
+      this.setState({
+        extramood: [...this.state.extramood, idstate]
+      })
+    } else {
       var array = [...this.state.extramood]; // make a separate copy of the array
-       var index = array.indexOf(idstate)
-       if (index !== -1) {
-         array.splice(index, 1);
-         this.setState({extramood: array});
-       }
+      var index = array.indexOf(idstate)
+      if (index !== -1) {
+        array.splice(index, 1);
+        this.setState({ extramood: array });
+      }
     }
   }
 
-  async GetMoodList(){
+  async GetMoodList() {
     try {
       const { data } = await UserAuthServices.GetMoodList()
       this.setState({
-        mooddata:data.data.main,
-        dataSource:data.data.extra
-        })
+        mooddata: data.data.main,
+        dataSource: data.data.extra
+      })
       console.log(data.data);
-      this.setState({load: !this.state.load})
-    }catch(error){
+      this.setState({ load: !this.state.load })
+    } catch (error) {
       console.log(error)
-      this.dropDownAlertRef.alertWithType('error', 'Failed',error.response.data.message);
-      this.setState({load: !this.state.load})
+      this.dropDownAlertRef.alertWithType('error', 'Failed', error.response.data.message);
+      this.setState({ load: !this.state.load })
     }
     console.log(this.state.user);
 
   }
 
 
-  async AddMoodUser(){
-    if(this.state.main_id!=""){
+  async AddMoodUser() {
+    if (this.state.main_id != "") {
       try {
-        const { data } = await UserAuthServices.AddMooduser(this.state.user.token,this.state.main_id,this.state.extramood)
+        const { data } = await UserAuthServices.AddMooduser(this.state.user.token, this.state.main_id, this.state.extramood)
         console.log(data.data);
-        this.dropDownAlertRef.alertWithType('success', 'Success',"Mood added success");
+        this.dropDownAlertRef.alertWithType('success', 'Success', "Mood added success");
         this.props.navigation.pop(1)
-      }catch(error){
+      } catch (error) {
         console.log(error)
-        this.dropDownAlertRef.alertWithType('error', 'Failed',error.response.data.message);
+        this.dropDownAlertRef.alertWithType('error', 'Failed', error.response.data.message);
       }
-    }else{
-      this.dropDownAlertRef.alertWithType('error', 'Failed',"Select One mood");
+    } else {
+      this.dropDownAlertRef.alertWithType('error', 'Failed', "Select One mood");
     }
   }
 
-   render()
-   {
-     let sampleData = [30, 200, 170, 250, 10]
-     return (
-       <>
-                <View style={styles.slide}>
-                <StatusBar
-                     backgroundColor = "#fff"
-                     barStyle = "dark-content"
-                   />
-                   <View style={{flexDirection:"row"}}>
-                   <View style={{marginTop:35,marginLeft:10}}>
-                     <TouchableOpacity underlayColor='#FFFFF' onPress={()=> this.props.navigation.pop(1)}>
-                           <Icon
-                            name='arrow-left'
-                            size={25}
-                            color='#1c2d41'
-                          />
-                     </TouchableOpacity>
-                   </View>
+  render() {
+    let sampleData = [30, 200, 170, 250, 10]
+    return (
+      <>
+        <View style={styles.slide}>
+          <StatusBar
+            backgroundColor="#fff"
+            barStyle="dark-content"
+          />
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ marginTop: 35, marginLeft: 10 }}>
+              <TouchableOpacity underlayColor='#FFFFF' onPress={() => this.props.navigation.pop(1)}>
+                <Icon
+                  name='arrow-left'
+                  size={25}
+                  color='#1c2d41'
+                />
+              </TouchableOpacity>
+            </View>
 
-                     <View>
-                       <Text style={{fontSize: 20,color: "#000", marginTop:30 ,fontWeight:'bold',marginLeft:25}}>How do you feel{"\n"}right now?</Text>
-                       <Text style={{fontSize: 16,color: "#97a0a8", marginTop:10 ,fontWeight:'bold',marginLeft:25}}>Select as many as apply?</Text>
-                     </View>
-                   </View>
+            <View>
+              <Text style={{ fontSize: 20, color: "#000", marginTop: 30, fontWeight: 'bold', marginLeft: 25 }}>How do you feel{"\n"}right now?</Text>
+              <Text style={{ fontSize: 16, color: "#97a0a8", marginTop: 10, fontWeight: 'bold', marginLeft: 25 }}>Select as many as apply?</Text>
+            </View>
+          </View>
 
 
-                  <View style={{alignItems:'center'}}>
-                  <ScrollView horizontal={true} style={{marginTop:15}} showsHorizontalScrollIndicator={false}>
-                  <View style=
-                        {{
-                           flexDirection: 'row',
-                           margin:10,}}>
+          <View style={{ alignItems: 'center' }}>
+            <ScrollView horizontal={true} style={{ marginTop: 15 }} showsHorizontalScrollIndicator={false}>
+              <View style=
+                {{
+                  flexDirection: 'row',
+                  margin: 10,
+                }}>
 
-                          {
-                            this.state.load?
-                            <View style={{borderColor: '#201F3E',height:100,width:90,alignItems:'center'}}>
-                                <ActivityIndicator size="large" color="#201F3E" />
-                            </View>
-                            :
-                            <FlatList
-                              data={this.state.mooddata}
-                              horizontal={true}
-                              renderItem={({ item }) =>
-                              <TouchableOpacity underlayColor='#FFFFF' onPress={()=> this.setState({main_id :item._id,})}>
-                                <View style={[styles.flaxview,{borderWidth: (this.state.main_id ==item._id)?1:0,borderColor: '#201F3E'}]}>
-                                <Image source={{uri: `${item.image}`}} style={{height:60,width:80,margin:5,resizeMode: 'contain',}} />
-                                  <Text style={{fontSize: 12,color: "#baa8ff", marginTop:10 ,fontWeight:'bold'}}>{item.name}</Text>
-                                </View>
-                              </TouchableOpacity>
-                            }
-                            />
-                          }
-
-                      </View>
-                  </ScrollView>
-                  </View>
-
-                  <View style={{flex:1,backgroundColor: "#f9f9f9",borderTopLeftRadius:40,borderTopRightRadius:40,overflow:"hidden"}}>
-                     <View style={{borderTopLeftRadius:40,borderTopRightRadius:40,overflow:"hidden", justifyContent: 'center',alignItems: 'center',}}>
-                     {
-                       this.state.load?
-                       <View style={{borderColor: '#201F3E',height:100,width:90,justifyContent: 'center',alignItems: 'center'}}>
-                           <ActivityIndicator size="large" color="#201F3E" />
-                       </View>
-                       :
-                       <FlatList
-                         showsVerticalScrollIndicator={false}
-                         data={this.state.dataSource}
-                         renderItem={({ item }) => (
-                           <TouchableOpacity underlayColor='#FFFFF' onPress={()=>{ this.addectra(item._id) }}>
-                             <View style={[styles.flaxview,{borderWidth: (this.state.extramood.indexOf(item._id) !== -1)?1:0,borderColor: '#201F3E'}]}>
-                               <Image source={{uri: `${item.image}`}} style={{height:60,width:80,margin:5,resizeMode: 'contain',}} />
-                               <Text style={{fontSize: 12,color: "#000", marginTop:10,fontWeight:'bold'}}>{item.name}</Text>
-                             </View>
-                           </TouchableOpacity>
-                         )}
-                         //Setting the number of column
-                         numColumns={3}
-                         keyExtractor={(item, index) => index.toString()}
-                        />
+                {
+                  this.state.load ?
+                    <View style={{ borderColor: '#201F3E', height: 100, width: 90, alignItems: 'center' }}>
+                      <ActivityIndicator size="large" color="#201F3E" />
+                    </View>
+                    :
+                    <FlatList
+                      data={this.state.mooddata}
+                      horizontal={true}
+                      renderItem={({ item }) =>
+                        <TouchableOpacity underlayColor='#FFFFF' onPress={() => this.setState({ main_id: item._id, })}>
+                          <View style={[styles.flaxview, { borderWidth: (this.state.main_id == item._id) ? 1 : 0, borderColor: '#201F3E' }]}>
+                            <Image source={{ uri: `${item.image}` }} style={{ height: 60, width: 80, margin: 5, resizeMode: 'contain', }} />
+                            <Text style={{ fontSize: 12, color: "#baa8ff", marginTop: 10, fontWeight: 'bold' }}>{item.name}</Text>
+                          </View>
+                        </TouchableOpacity>
                       }
-                     </View>
+                    />
+                }
+
+              </View>
+            </ScrollView>
+          </View>
+
+          <View style={{ flex: 1, backgroundColor: "#f9f9f9", borderTopLeftRadius: 40, borderTopRightRadius: 40, overflow: "hidden" }}>
+            <View style={{ borderTopLeftRadius: 40, borderTopRightRadius: 40, overflow: "hidden", justifyContent: 'center', alignItems: 'center', }}>
+              {
+                this.state.load ?
+                  <View style={{ borderColor: '#201F3E', height: 100, width: 90, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size="large" color="#201F3E" />
                   </View>
+                  :
+                  <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={this.state.dataSource}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity underlayColor='#FFFFF' onPress={() => { this.addectra(item._id) }}>
+                        <View style={[styles.flaxview, { borderWidth: (this.state.extramood.indexOf(item._id) !== -1) ? 1 : 0, borderColor: '#201F3E' }]}>
+                          <Image source={{ uri: `${item.image}` }} style={{ height: 60, width: 80, margin: 5, resizeMode: 'contain', }} />
+                          <Text style={{ fontSize: 12, color: "#000", marginTop: 10, fontWeight: 'bold' }}>{item.name}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                    //Setting the number of column
+                    numColumns={3}
+                    keyExtractor={(item, index) => index.toString()}
+                  />
+              }
+            </View>
+          </View>
 
-                  <View style={{alignItems:'center'}}>
-                     <TouchableOpacity underlayColor='#FFFFF' onPress={()=>  this.AddMoodUser()}>
-                       <Image source={require("../../assets/submit.png")} style={{width:(Dimensions.get('window').width)-40, resizeMode: 'contain',marginBottom:10}} />
-                     </TouchableOpacity>
-                  </View>
+          <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity underlayColor='#FFFFF' onPress={() => this.AddMoodUser()}>
+              <Image source={require("../../assets/submit.png")} style={{ width: (Dimensions.get('window').width) - 40, resizeMode: 'contain', marginBottom: 10 }} />
+            </TouchableOpacity>
+          </View>
 
-                    <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
+          <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
 
-               </View>
-       </>
-     );
-   }
+        </View>
+      </>
+    );
+  }
 }
 const styles = StyleSheet.create(
-{
-     slide: {
-       flex: 1,
-       backgroundColor: "#FFFFFF"
-     },
-     SplashScreen_RootView:
-     {
+  {
+    slide: {
+      flex: 1,
+      backgroundColor: "#FFFFFF"
+    },
+    SplashScreen_RootView:
+    {
 
-     },
-     navBar: {
+    },
+    navBar: {
       height: 60,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -279,15 +289,15 @@ const styles = StyleSheet.create(
     },
 
     flaxview: {
-     alignItems: 'center',
-     backgroundColor: "#fff",
-     borderRadius:10,
-     margin:5,
-     elevation:4,
-     padding:10,
-     shadowOffset: { width: 5, height: 10 },
-     shadowColor: '#F2F2F2',
-     shadowOpacity: 1,
+      alignItems: 'center',
+      backgroundColor: "#fff",
+      borderRadius: 10,
+      margin: 5,
+      elevation: 4,
+      padding: 10,
+      shadowOffset: { width: 5, height: 10 },
+      shadowColor: '#F2F2F2',
+      shadowOpacity: 1,
 
     },
-});
+  });

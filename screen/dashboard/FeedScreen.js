@@ -26,14 +26,14 @@ import {
   RefreshControl
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { NavigationActions,StackActions } from "react-navigation";
+// import {
+//   Header,
+//   LearnMoreLinks,
+//   Colors,
+//   DebugInstructions,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationActions,StackActions } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
 import IconLike from "react-native-vector-icons/AntDesign";
 import {LineChart} from 'react-native-chart-kit';
@@ -42,18 +42,18 @@ import ImagesSwiper from "react-native-image-swiper";
 import TimeAgo from 'react-native-timeago';
 import Share from "react-native-share"
 import DropdownAlert from 'react-native-dropdownalert';
-const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#08130D",
-  backgroundGradientToOpacity: 0.5,
-  color: 'rgba(26, 255, 146)',
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  useShadowColorFromDataset: false // optional
-};
+// const chartConfig = {
+//   backgroundGradientFrom: "#1E2923",
+//   backgroundGradientFromOpacity: 0,
+//   backgroundGradientTo: "#08130D",
+//   backgroundGradientToOpacity: 0.5,
+//   color: 'rgba(26, 255, 146)',
+//   strokeWidth: 2, // optional, default 3
+//   barPercentage: 0.5,
+//   useShadowColorFromDataset: false // optional
+// };
 
-export default class FeedScreen extends Component<{}>
+export default class FeedScreen extends Component//<{}>
 {
   constructor(){
       super();
@@ -191,11 +191,13 @@ export default class FeedScreen extends Component<{}>
 
                       <View style={styles.rightContainer}>
                       <TouchableOpacity underlayColor='#FFFFF' onPress={()=> this.props.myprop.props.navigation.navigate("NotificationList") }>
-                            <Icon
+                      <Image source={require("../../assets/notfication.png")} style={{width:25,marginRight:10}} />
+                           
+                            {/* <Icon
                              name='bell'
                              size={25}
                              color='#1c2d41'
-                           />
+                           /> */}
                       </TouchableOpacity>
                       </View>
                  </View>
@@ -294,19 +296,20 @@ export default class FeedScreen extends Component<{}>
                              <Text style={{ fontSize:10, color: "#000",textAlign:'center',marginLeft:5}}> {item.totalComments} Comments </Text>
                            </TouchableOpacity>
 
-                           <TouchableOpacity style={{ flex:1,padding:10,borderRadius:10,marginLeft:5,marginRight:5,flexDirection:'row'}} onPress={()=>this.SharePost(index,item._id,item)}>
+                           {/* <TouchableOpacity style={{ flex:1,padding:10,borderRadius:10,marginLeft:5,marginRight:5,flexDirection:'row'}} onPress={()=>this.SharePost(index,item._id,item)}>
                            <Icon
                              name='corner-up-right'
                              size={20}
                              color='#1c2d41'
                            />
                              <Text style={{ fontSize:10,color: "#000",textAlign:'center' ,marginLeft:5}}>  {item.totalShare} Share </Text>
-                           </TouchableOpacity>
+                           </TouchableOpacity> */}
 
                          </View>
                          <View style={{flexDirection:'row'}}>
                          <TextInput
                              style={{
+                               paddingStart:10,
                                borderRadius:0,
                                borderColor:'#B5B1B1',
                                borderBottomLeftRadius:7,

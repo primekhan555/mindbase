@@ -34,7 +34,7 @@ import UserAuthServices from './dashboard/Services/UserAuthServices.js';
 import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';
 
-export default class SplashScreen extends Component<{}>
+export default class SplashScreen extends Component//<{}>
 {
   constructor(){
     super();
