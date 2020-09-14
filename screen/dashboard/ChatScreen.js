@@ -56,7 +56,7 @@ const chartConfig = {
   useShadowColorFromDataset: false // optional
 };
 
-export default class ChatScreen extends Component<{}>
+export default class ChatScreen extends Component//<{}>
 {
   constructor(){
       super();

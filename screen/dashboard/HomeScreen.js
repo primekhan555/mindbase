@@ -85,7 +85,7 @@ const customStyles = {
   currentStepLabelColor: '#fe7013'
 }
 
-export default class HomeScreen extends Component<{}>
+export default class HomeScreen extends Component//<{}>
 {
   constructor(){
       super();

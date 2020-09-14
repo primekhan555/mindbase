@@ -158,8 +158,11 @@ export default class FinalScreen extends Component//<{}>
           </View>
           <View style={{ alignItems: 'center', justifyContent: 'center', position: "absolute", top: 0, bottom: 0, right: -30 }}>
             <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate('ChatListScreen',{myprop:this})
+              onPress={async() => {
+                const { data } = await UserAuthServices.GetChatUser(this.state.user.token, this.state.user.department._id)
+                const item=data.data[0];
+                this.props.navigation.navigate("ChatScreen", { refid: item._id, name: item.logo ? "Department " + item.department : item.firstName + " " + item.lastName, item: item })
+                // this.props.navigation.navigate('ChatListScreen',{myprop:this})
                 // let phoneNumber = '';
                 // let phone = this.state.listdata.smsNo
                 // if (Platform.OS !== 'android') {
@@ -195,7 +198,7 @@ export default class FinalScreen extends Component//<{}>
             </TouchableOpacity>
           </View>
           <View style={{ marginTop: 200, paddingStart: 50, paddingEnd: 50, backgroundColor: 'white' }}>
-            <Text style={{ textAlign: 'center',color:'grey' }}>To ensure privacy, all calls are confidential
+            <Text style={{ textAlign: 'center', color: 'grey' }}>To ensure privacy, all calls are confidential
             with a counselor who is not part of the your
             Police Department.
  </Text>
@@ -210,7 +213,7 @@ const styles = StyleSheet.create(
   {
     slide: {
       flex: 1,
-      backgroundColor:"#FFFFFF"
+      backgroundColor: "#FFFFFF"
     },
     SplashScreen_RootView:
     {

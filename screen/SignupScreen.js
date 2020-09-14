@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 
 import {
   SafeAreaView,
@@ -31,7 +31,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import {NavigationActions, StackActions} from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
@@ -39,8 +39,10 @@ import DropdownAlert from 'react-native-dropdownalert';
 import UserAuthServices from './dashboard/Services/UserAuthServices.js';
 import firebaseService from './dashboard/firebaseService.js';
 
-export default class SignupScreen extends Component<{}> {
+export default class SignupScreen extends Component//<{}> 
+{
   showDatePicker() {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
     this.setState({
       isDatePickerVisible: true,
     });
@@ -81,26 +83,20 @@ export default class SignupScreen extends Component<{}> {
       load: false,
       departmentvalue: '',
       department: [],
-      gender:"Male"
+      gender: "Male"
     };
   }
 
   componentDidMount() {
-    console.log('hello');
-
     this.GetChatList();
   }
 
   async GetChatList() {
-    console.log("333333333333333333333333333333333ddddd");
-
     try {
-      const {data} = await UserAuthServices.GetDepartment();
-
+      const { data } = await UserAuthServices.GetDepartment();
       var datslit = [];
-      console.log("dddddddddddddddddddddddddddddddddd");
       // console.log(data);
-      data.data.forEach(function(item) {
+      data.data.forEach(function (item) {
         datslit.push(<Picker.Item label={item.department} value={item._id} />);
       });
       this.setState({
@@ -113,7 +109,7 @@ export default class SignupScreen extends Component<{}> {
         'Failed',
         error.response.data.message,
       );
-      this.setState({loadmood: !this.state.loadmood});
+      this.setState({ loadmood: !this.state.loadmood });
     }
   }
 
@@ -142,12 +138,12 @@ export default class SignupScreen extends Component<{}> {
       return;
     }
     try {
-      this.setState({load: !this.state.load});
+      this.setState({ load: !this.state.load });
       // var gender = 'Female';
       // if (this.state.isyes) {
       //   gender = 'Male';
       // }
-      const {data} = await UserAuthServices.UserRegister(
+      const { data } = await UserAuthServices.UserRegister(
         this.state.firstname,
         this.state.lastname,
         this.state.oferid,
@@ -166,7 +162,7 @@ export default class SignupScreen extends Component<{}> {
         .catch(error => {
           dispatch(sessionError(error.message));
         });
-      this.setState({load: !this.state.load});
+      this.setState({ load: !this.state.load });
       this.props.navigation.navigate('LoginScreen');
     } catch (error) {
       console.log(error);
@@ -176,7 +172,7 @@ export default class SignupScreen extends Component<{}> {
         'Failed',
         error.response.data.message,
       );
-      this.setState({load: !this.state.load});
+      this.setState({ load: !this.state.load });
     }
   }
 
@@ -186,8 +182,8 @@ export default class SignupScreen extends Component<{}> {
         <ScrollView style={styles.SplashScreen_RootView}>
           <StatusBar backgroundColor="#fff" barStyle="dark-content" />
           <View style={styles.slide}>
-          <View style={{flexDirection:'row',justifyContent:'space-evenly',position: 'relative',height:150}}>
-              <Image source={require('../assets/MindBase4.png')} style={{width:120,resizeMode: 'contain',marginTop: 30,}}/>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', position: 'relative', height: 150 }}>
+              <Image source={require('../assets/MindBase4.png')} style={{ width: 120, resizeMode: 'contain', marginTop: 30, }} />
               <Image
                 source={require('../assets/bgimage.png')}
                 style={{
@@ -203,7 +199,7 @@ export default class SignupScreen extends Component<{}> {
             <Text style={styles.textlabale}>Signup to get Started</Text>
 
             <View
-              style={[styles.searchSection, {elevation: this.state.isfirst}]}>
+              style={[styles.searchSection, { elevation: this.state.isfirst }]}>
               <View
                 style={{
                   marginRight: 10,
@@ -214,13 +210,13 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({isfirst: 20})}
-                onBlur={() => this.setState({isfirst: 0})}
+                onFocus={() => this.setState({ isfirst: 20 })}
+                onBlur={() => this.setState({ isfirst: 0 })}
                 style={styles.input}
                 placeholderTextColor="#201F3E"
                 placeholder="First Name"
                 onChangeText={searchString => {
-                  this.setState({firstname: searchString});
+                  this.setState({ firstname: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -237,7 +233,7 @@ export default class SignupScreen extends Component<{}> {
             />
 
             <View
-              style={[styles.searchSection, {elevation: this.state.islast}]}>
+              style={[styles.searchSection, { elevation: this.state.islast }]}>
               <View
                 style={{
                   marginRight: 10,
@@ -248,13 +244,13 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({islast: 20})}
-                onBlur={() => this.setState({islast: 0})}
+                onFocus={() => this.setState({ islast: 20 })}
+                onBlur={() => this.setState({ islast: 0 })}
                 style={styles.input}
                 placeholder="Last Name"
                 placeholderTextColor="#201F3E"
                 onChangeText={searchString => {
-                  this.setState({lastname: searchString});
+                  this.setState({ lastname: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -270,7 +266,7 @@ export default class SignupScreen extends Component<{}> {
               }}
             />
 
-            
+
             {/* <View style={{borderBottomWidth: 2,borderBottomColor: '#e5e8ef',width: (Dimensions.get('window').width)-40,marginLeft:20,marginRight:20}}/>
           <TouchableOpacity onPress={()=> this.setState({ isDatePickerVisible:true }) }>
             <View style={{ flexDirection: 'row',
@@ -316,7 +312,7 @@ export default class SignupScreen extends Component<{}> {
                 <Icon name="calendar" size={25} color="#1c2d41" />
               </View> */}
 
-              {/* <TextInput
+            {/* <TextInput
               
                 onFocus={() => this.setState({birth: 20})}
                 onBlur={() => this.setState({birth: 0})}
@@ -331,7 +327,7 @@ export default class SignupScreen extends Component<{}> {
               />
             </View> */}
 
-          
+
 
             {/* <View
               style={{
@@ -344,7 +340,7 @@ export default class SignupScreen extends Component<{}> {
               }}
             /> */}
             <View
-              style={[styles.searchSection, {elevation: this.state.ismail}]}>
+              style={[styles.searchSection, { elevation: this.state.ismail }]}>
               <View
                 style={{
                   marginRight: 10,
@@ -355,14 +351,14 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({ismail: 20})}
-                onBlur={() => this.setState({ismail: 0})}
+                onFocus={() => this.setState({ ismail: 20 })}
+                onBlur={() => this.setState({ ismail: 0 })}
                 style={styles.input}
                 placeholderTextColor="#201F3E"
                 placeholder="Work Email"
                 autoCapitalize="none"
                 onChangeText={searchString => {
-                  this.setState({email: searchString});
+                  this.setState({ email: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -379,7 +375,7 @@ export default class SignupScreen extends Component<{}> {
             />
 
             <View
-              style={[styles.searchSection, {elevation: this.state.isphone}]}>
+              style={[styles.searchSection, { elevation: this.state.isphone }]}>
               <View
                 style={{
                   marginRight: 10,
@@ -390,14 +386,14 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({isphone: 20})}
-                onBlur={() => this.setState({isphone: 0})}
+                onFocus={() => this.setState({ isphone: 20 })}
+                onBlur={() => this.setState({ isphone: 0 })}
                 style={styles.input}
                 keyboardType="numeric"
                 placeholderTextColor="#201F3E"
                 placeholder="Phone No"
                 onChangeText={searchString => {
-                  this.setState({phoneno: searchString});
+                  this.setState({ phoneno: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -416,7 +412,7 @@ export default class SignupScreen extends Component<{}> {
             <View
               style={[
                 styles.searchSection,
-                {elevation: this.state.ispasswoed},
+                { elevation: this.state.ispasswoed },
               ]}>
               <View
                 style={{
@@ -428,14 +424,14 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({ispasswoed: 20})}
-                onBlur={() => this.setState({ispasswoed: 0})}
+                onFocus={() => this.setState({ ispasswoed: 20 })}
+                onBlur={() => this.setState({ ispasswoed: 0 })}
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="#201F3E"
                 secureTextEntry={true}
                 onChangeText={searchString => {
-                  this.setState({password: searchString});
+                  this.setState({ password: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -530,91 +526,91 @@ export default class SignupScreen extends Component<{}> {
               </View>
             </View> */}
 
-           
-                
-           <View style={{flexDirection:"row",justifyContent:"space-between",marginTop: 20,marginRight:20,marginLeft:20}}>
-           <View
-              style={{
-                // width: 150,//Dimensions.get('window').width - 40,
-                // marginLeft: 25,
-                // marginRight: 20,
-              }}>
-              {/* <Text
+
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginRight: 20, marginLeft: 20 }}>
+              <View
+                style={{
+                  // width: 150,//Dimensions.get('window').width - 40,
+                  // marginLeft: 25,
+                  // marginRight: 20,
+                }}>
+                {/* <Text
                 style={{fontSize: 14, color: '#7d8092', fontWeight: 'bold'}}>
                 Department
               </Text> */}
-              <Picker
-              
-                style={{
-                  width:170,// Dimensions.get('window').width - 70,
-                  // fontWeight: 'bold',
-                  fontSize:10
-                }}
-                itemStyle={{fontWeight: 'bold'}}
-                selectedValue={this.state.departmentvalue}
-                onValueChange={value => {
-                  this.setState({departmentvalue: value});
-                }}>
-                <Picker.Item label={'Select Department'} value={''} />
-                {this.state.department}
-              </Picker>
-              <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: '#e5e8ef',
-                width: 150,//Dimensions.get('window').width - 40,
-                // marginLeft: 20,
-                // marginRight: 20,
-                alignItems: 'center',
-              }}
-            />
-            </View> 
-           <TouchableOpacity onPress={()=>this.setState({isDatePickerVisible:true})}>
-           <View style={{marginTop:16}}>
-              <Text>{this.state.date}</Text>
-              <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: '#e5e8ef',
-                width: 70,//Dimensions.get('window').width - 40,
-                marginTop: 15,
-                // marginRight: 20,
-                alignItems: 'center',
-              }}
-            />
+                <Picker
+
+                  style={{
+                    width: 170,// Dimensions.get('window').width - 70,
+                    // fontWeight: 'bold',
+                    fontSize: 10
+                  }}
+                  itemStyle={{ fontWeight: 'bold' }}
+                  selectedValue={this.state.departmentvalue}
+                  onValueChange={value => {
+                    this.setState({ departmentvalue: value });
+                  }}>
+                  <Picker.Item label={'Select Department'} value={''} />
+                  {this.state.department}
+                </Picker>
+                <View
+                  style={{
+                    borderBottomWidth: 2,
+                    borderBottomColor: '#e5e8ef',
+                    width: 150,//Dimensions.get('window').width - 40,
+                    // marginLeft: 20,
+                    // marginRight: 20,
+                    alignItems: 'center',
+                  }}
+                />
+              </View>
+              <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true })}>
+                <View style={{ marginTop: 16 }}>
+                  <Text>{this.state.date}</Text>
+                  <View
+                    style={{
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#e5e8ef',
+                      width: 70,//Dimensions.get('window').width - 40,
+                      marginTop: 15,
+                      // marginRight: 20,
+                      alignItems: 'center',
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <View style={{}}>
+                <Picker
+                  style={{
+                    width: 100,// Dimensions.get('window').width - 70,
+                    // fontWeight: 'bold',
+                    fontSize: 10
+                  }}
+                  itemStyle={{ fontWeight: 'bold' }}
+                  selectedValue={this.state.gender}
+                  onValueChange={value => {
+                    console.log(value)
+                    this.setState({ gender: value });
+                  }}>
+                  <Picker.Item label={'Male'} value={'Male'} />
+                  <Picker.Item label={'Female'} value={'Female'} />
+                  {/* {this.state.department} */}
+                </Picker>
+                <View
+                  style={{
+                    borderBottomWidth: 2,
+                    borderBottomColor: '#e5e8ef',
+                    width: 75,//Dimensions.get('window').width - 40,
+                    marginLeft: 4,
+                    marginRight: 80,
+                    alignItems: 'center',
+                  }}
+                />
+              </View>
             </View>
-           </TouchableOpacity>
-            <View style={{}}>
-            <Picker
-                style={{
-                  width:100,// Dimensions.get('window').width - 70,
-                  // fontWeight: 'bold',
-                  fontSize:10
-                }}
-                itemStyle={{fontWeight: 'bold'}}
-                selectedValue={this.state.gender}
-                onValueChange={value => {
-                  console.log(value)
-                  this.setState({gender: value});
-                }}>
-                <Picker.Item label={'Male'} value={'Male'} />
-                <Picker.Item label={'Female'} value={'Female'} />
-                {/* {this.state.department} */}
-              </Picker>
-               <View
-              style={{
-                borderBottomWidth: 2,
-                borderBottomColor: '#e5e8ef',
-                width: 75,//Dimensions.get('window').width - 40,
-                marginLeft: 4,
-                marginRight: 80,
-                alignItems: 'center',
-              }}
-            />
-            </View>
-           </View>
             <View
-              style={[styles.searchSection, {elevation: this.state.isofficer}]}>
+              style={[styles.searchSection, { elevation: this.state.isofficer }]}>
               <View
                 style={{
                   marginRight: 10,
@@ -625,13 +621,13 @@ export default class SignupScreen extends Component<{}> {
               </View>
 
               <TextInput
-                onFocus={() => this.setState({isofficer: 20})}
-                onBlur={() => this.setState({isofficer: 0})}
+                onFocus={() => this.setState({ isofficer: 20 })}
+                onBlur={() => this.setState({ isofficer: 0 })}
                 style={styles.input}
                 placeholderTextColor="#201F3E"
                 placeholder="Officer Id"
                 onChangeText={searchString => {
-                  this.setState({oferid: searchString});
+                  this.setState({ oferid: searchString });
                 }}
                 underlineColorAndroid="transparent"
               />
@@ -650,7 +646,7 @@ export default class SignupScreen extends Component<{}> {
               isVisible={this.state.isDatePickerVisible}
               mode="date"
               onConfirm={date => this.handleConfirm(date)}
-              onCancel={() => this.setState({isDatePickerVisible: false})}
+              onCancel={() => this.setState({ isDatePickerVisible: false })}
             />
 
 
@@ -671,27 +667,27 @@ export default class SignupScreen extends Component<{}> {
             {this.state.load ? (
               <ActivityIndicator size="large" color="#201F3E" />
             ) : (
-              <View style={styles.slide_login}>
-                <TouchableHighlight
-                  underlayColor="#FFFFF"
-                  onPress={() => this.registeruser()}>
-                  <Image
-                    source={require('../assets/signup.png')}
-                    style={{
-                      width: Dimensions.get('window').width - 40,
-                      resizeMode: 'contain',
-                      marginTop: 30,
-                    }}
-                  />
-                </TouchableHighlight>
-              </View>
-            )}
+                <View style={styles.slide_login}>
+                  <TouchableHighlight
+                    underlayColor="#FFFFF"
+                    onPress={() => this.registeruser()}>
+                    <Image
+                      source={require('../assets/signup.png')}
+                      style={{
+                        width: Dimensions.get('window').width - 40,
+                        resizeMode: 'contain',
+                        marginTop: 30,
+                      }}
+                    />
+                  </TouchableHighlight>
+                </View>
+              )}
 
-            <View style={{marginRight: 20}}>
-              <Text style={{color: '#959da5', textAlign: 'right'}}>
+            <View style={{ marginRight: 20 }}>
+              <Text style={{ color: '#959da5', textAlign: 'right' }}>
                 Already have an Account?{' '}
                 <Text
-                  style={{color: '#000'}}
+                  style={{ color: '#000' }}
                   onPress={() => this.props.navigation.goBack()}>
                   Login
                 </Text>
