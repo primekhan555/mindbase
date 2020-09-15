@@ -74,7 +74,6 @@ export default class NotificationList extends Component//<{}>
     }).done();
   }
 
-
   async GetChatList() {
     try {
       console.log(this.state.user.token);
@@ -125,10 +124,8 @@ export default class NotificationList extends Component//<{}>
                 refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={() => this.GetChatList()} />}
                 renderItem={({ item, index }) => (
                   <View
-                    style={[styles.button]}
-                  >
+                    style={[styles.button]}>
                     <TouchableOpacity underlayColor='#FFFFF'>
-
                       <View style={{
                         backgroundColor: "#fff",
                         marginTop: 15,
@@ -150,19 +147,15 @@ export default class NotificationList extends Component//<{}>
                                 :
                                 null
                             }
-
                             <View>
                               <Text style={{ fontSize: 15, color: '#000', justifyContent: 'center', alignItems: 'center', }}>
                                 {item.sender.firstName + " " + item.sender.lastName} {item.message}
                               </Text>
-
                               <Text style={{ fontSize: 12, color: '#000', justifyContent: 'center', alignItems: 'center', }}>
                                 {Moment(item.createdAt).format('DD MMM')}
                               </Text>
-
                             </View>
                           </View>
-
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -170,16 +163,13 @@ export default class NotificationList extends Component//<{}>
                 )}
                 //Setting the number of column
                 numColumns={1}
-
               />
           }
-
         </View>
       </>
     );
   }
 }
-
 
 const styles = StyleSheet.create(
   {
@@ -187,7 +177,6 @@ const styles = StyleSheet.create(
       flex: 1,
       backgroundColor: "#FFFFFF",
     },
-
     navBar: {
       height: 70,
       flexDirection: 'row',
@@ -206,7 +195,6 @@ const styles = StyleSheet.create(
       justifyContent: 'flex-start',
     },
     rightContainer: {
-
       flexDirection: 'row',
       justifyContent: 'flex-end',
       marginRight: 10,

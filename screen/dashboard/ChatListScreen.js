@@ -212,7 +212,7 @@ export default class ChatListScreen extends Component//<{}>
   searchlist(searchString) {
     if (searchString == "") {
       this.setState({
-        dataSource:this.state.filter,
+        dataSource: this.state.filter,
       })
       return
     }
@@ -291,7 +291,8 @@ export default class ChatListScreen extends Component//<{}>
                           }
                         ]
                       }]}>
-                      <TouchableOpacity underlayColor='#FFFFF' onPress={() => this.props.navigation.navigate("ChatScreen", { refid: item._id, name: item.logo ? "Department " + item.department : item.firstName + " " + item.lastName, item: item })}>
+
+                      <TouchableOpacity underlayColor='#FFFFF' onPress={() => this.props.myprop.props.navigation.navigate('ChatScreen', { refid: item._id, name: item.logo ? "Department " + item.department : item.firstName + " " + item.lastName, item: item })}>
                         <View style={{
                           backgroundColor: "#fff",
                           marginTop: 15,

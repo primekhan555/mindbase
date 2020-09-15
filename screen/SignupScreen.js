@@ -42,17 +42,16 @@ import firebaseService from './dashboard/firebaseService.js';
 export default class SignupScreen extends Component//<{}> 
 {
   showDatePicker() {
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
     this.setState({
       isDatePickerVisible: true,
     });
   }
 
   handleConfirm(date) {
-    var newDate = moment(Date(date)).format('DD-MM-YYYY');
-    console.log(newDate.toString())
+    var newDate = moment(date).format('YYYY-MM-DD');
     this.setState({
       date: newDate,
+      isDatePickerVisible: false,
     });
   }
 
@@ -114,6 +113,7 @@ export default class SignupScreen extends Component//<{}>
   }
 
   async registeruser() {
+    console.log(this.state.date)
     if (
       this.state.firstname == '' ||
       this.state.lastname == '' ||
@@ -151,7 +151,7 @@ export default class SignupScreen extends Component//<{}>
         this.state.gender,
         this.state.phoneno,
         this.state.password,
-        this.state.date.toString(),
+        this.state.date,
         this.state.departmentvalue,
       );
       console.log(data);
@@ -265,8 +265,6 @@ export default class SignupScreen extends Component//<{}>
                 alignItems: 'center',
               }}
             />
-
-
             {/* <View style={{borderBottomWidth: 2,borderBottomColor: '#e5e8ef',width: (Dimensions.get('window').width)-40,marginLeft:20,marginRight:20}}/>
           <TouchableOpacity onPress={()=> this.setState({ isDatePickerVisible:true }) }>
             <View style={{ flexDirection: 'row',
@@ -326,9 +324,6 @@ export default class SignupScreen extends Component//<{}>
                 underlineColorAndroid="transparent"
               />
             </View> */}
-
-
-
             {/* <View
               style={{
                 borderBottomWidth: 2,
@@ -525,9 +520,6 @@ export default class SignupScreen extends Component//<{}>
                 </TouchableHighlight>
               </View>
             </View> */}
-
-
-
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginRight: 20, marginLeft: 20 }}>
               <View
                 style={{
@@ -565,7 +557,7 @@ export default class SignupScreen extends Component//<{}>
                   }}
                 />
               </View>
-              <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true })}>
+              <TouchableOpacity onPress={() => this.showDatePicker()}>
                 <View style={{ marginTop: 16 }}>
                   <Text>{this.state.date}</Text>
                   <View

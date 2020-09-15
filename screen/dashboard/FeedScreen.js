@@ -73,7 +73,6 @@ export default class FeedScreen extends Component//<{}>
      this.userdata();
    }
 
-
    userdata(){
      AsyncStorage.getItem("User").then((value) => {
           this.setState({

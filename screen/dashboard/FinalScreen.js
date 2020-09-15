@@ -190,14 +190,12 @@ export default class FinalScreen extends Component//<{}>
                   console.log("asas");
                   phoneNumber = `tel:${phone}`;
                 }
-                Linking.openURL(phoneNumber)
-
-              }
+                Linking.openURL(phoneNumber)}
               }>
               <Image source={require("../../assets/callmain.png")} style={{ width: 100, resizeMode: 'contain' }} />
             </TouchableOpacity>
           </View>
-          <View style={{ marginTop: 200, paddingStart: 50, paddingEnd: 50, backgroundColor: 'white' }}>
+          <View style={{ marginTop:(Dimensions.get('window').width)/1.5, paddingStart: 50, paddingEnd: 50, backgroundColor: 'white' }}>
             <Text style={{ textAlign: 'center', color: 'grey' }}>To ensure privacy, all calls are confidential
             with a counselor who is not part of the your
             Police Department.
