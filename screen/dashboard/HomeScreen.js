@@ -514,7 +514,6 @@ export default class HomeScreen extends Component//<{}>
                         }}
                         width={Dimensions.get("window").width-30} // from react-native
                         height={160}
-
                         yAxisInterval={1}
                         yAxisLabel="$" // optional, defaults to 1
                         chartConfig={{

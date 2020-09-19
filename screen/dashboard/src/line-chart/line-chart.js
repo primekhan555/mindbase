@@ -592,7 +592,7 @@ class LineChart extends AbstractChart {
                     paddingTop,
                     formatXLabel
                   })
-                : null}
+                  : null} 
             </G>
             <G>
               {this.renderLine({

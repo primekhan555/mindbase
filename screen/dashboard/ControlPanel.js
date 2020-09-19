@@ -36,10 +36,13 @@ export default class ControlPanel extends Component {
 
    userdata(){
      AsyncStorage.getItem("User").then((value) => {
+      
           this.setState({
             user:JSON.parse(value)
           })
           this.update();
+          console.log("444444444444444444444444444444444444444444444444444444")
+          console.log(this.state.user)
        }).done();
    }
 
@@ -129,8 +132,7 @@ export default class ControlPanel extends Component {
               </View>
           </TouchableOpacity>
         </View>
-        <View style={{position:'absolute',top:90,left:10,flexDirection:'row',alignItems:'center'}}>
-
+        <View style={{position:'absolute',top:80,left:10,flexDirection:'row',alignItems:'center'}}>
           {
             this.state.user.profile?
             <View style={{borderRadius:500,overflow:"hidden",backgroundColor:"#201F3E",marginRight:20,}}>
@@ -140,7 +142,7 @@ export default class ControlPanel extends Component {
               <Image source={require("../../assets/face_left.png")} style={{marginRight:20,width:130,height:130,resizeMode: 'contain'}} />
           }
               <View>
-              <Text style={{fontSize:15,color:'#fff',marginTop:35,bottom:30,fontWeight:"bold"}}>
+              <Text style={{fontSize:15,color:'#fff',bottom:30,fontWeight:"bold"}}>
               {this.state.user.firstName + " " + this.state.user.lastName}
               </Text>
               <Text style={{fontSize:12,color:'#000',position:"absolute",marginTop:40,fontWeight:"bold"}}>
