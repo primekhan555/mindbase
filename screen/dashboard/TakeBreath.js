@@ -40,7 +40,7 @@ import CircleSlider from './components/CircleSlider';
 
 
 
-export default class TakeBreath extends Component//<{}>
+export default class TakeBreath extends Component
 {
   constructor() {
     super();

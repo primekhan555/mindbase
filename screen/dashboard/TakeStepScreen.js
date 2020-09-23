@@ -37,7 +37,7 @@ const chartConfig = {
   useShadowColorFromDataset: false // optional
 };
 
-export default class TakeStepScreen extends Component<{}>
+export default class TakeStepScreen extends Component
 {
   constructor(){
       super();

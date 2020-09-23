@@ -33,7 +33,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler'
 
 
-export default class SwiperScreen extends Component<{}>
+export default class SwiperScreen extends Component
 {
   constructor(){
     super();

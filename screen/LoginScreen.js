@@ -29,8 +29,7 @@ import UserAuthServices from './dashboard/Services/UserAuthServices.js';
 import DropdownAlert from 'react-native-dropdownalert';
 import firebaseService from './dashboard/firebaseService.js';
 
-export default class LoginScreen extends Component //<{}> 
-{
+export default class LoginScreen extends Component {
   constructor() {
     super();
     this.state = {
@@ -89,8 +88,17 @@ export default class LoginScreen extends Component //<{}>
         <ScrollView style={styles.SplashScreen_RootView}>
           <StatusBar backgroundColor="#fff" barStyle="dark-content" />
           <View style={styles.slide}>
-            <View style={{flexDirection:'row',justifyContent:'space-evenly',position: 'relative',height:150}}>
-              <Image source={require('../assets/MindBase4.png')} style={{width:120,resizeMode: 'contain',marginTop: 30,}}/>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                position: 'relative',
+                height: 150,
+              }}>
+              <Image
+                source={require('../assets/MindBase4.png')}
+                style={{width: 120, resizeMode: 'contain', marginTop: 30}}
+              />
               <Image
                 source={require('../assets/bgimage.png')}
                 style={{

@@ -39,7 +39,7 @@ import { CustomSlider } from './dashboard/components/CustomSlider';
 import UserAuthServices from './dashboard/Services/UserAuthServices.js';
 import DropdownAlert from 'react-native-dropdownalert';
 
-export default class MoodScreen extends Component//<{}>
+export default class MoodScreen extends Component
 {
   constructor() {
     super();
