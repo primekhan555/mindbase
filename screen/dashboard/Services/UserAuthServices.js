@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // let BASE_URL = 'http://ec2-3-135-119-95.us-east-2.compute.amazonaws.com:5000/api/v1';
- let BASE_URL = 'http://3.134.101.139:5000/api/v1';
+let BASE_URL = 'http://3.134.101.139:5000/api/v1';
 //let BASE_URL = 'http://531b9b77c2f7.ngrok.io/api/v1';
 
 const UserAuthServices = {
@@ -374,6 +374,31 @@ const UserAuthServices = {
       body,
       config,
     );
+    return data;
+  },
+  AddSession: async (token, session) => {
+    const config = {
+      headers: {'Content-Type': `application/json`, Authorization: token},
+    };
+    const body = {
+      session: session,
+    };
+    console.log(body);
+
+    const data = await axios.post(`${BASE_URL}/mood/addsession`, body, config);
+    console.log(data.status);
+    return data;
+  },
+  AddTips: async (token, tip) => {
+    const config = {
+      headers: {'Content-Type': `application/json`, Authorization: token},
+    };
+    const body = {
+      tip: tip,
+    };
+    console.log(body);
+    const data = await axios.post(`${BASE_URL}/mood/addtips`, body, config);
+    console.log(data.status);
     return data;
   },
 };
